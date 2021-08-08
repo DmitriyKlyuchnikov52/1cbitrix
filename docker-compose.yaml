@@ -1,0 +1,41 @@
+version: '3'
+services:
+    web:
+        image: nginx:1.21.1
+        ports:
+            - "8080:80"
+        volumes:
+            - ./nginx.conf:/etc/nginx/conf.d/nginx.conf
+            - ./app:/app
+#        networks:
+#            - bitrix
+#        restart: always
+    php:
+        build:
+            context: .
+            dockerfile: PHP.Dockerfile          
+        volumes:
+            - ./app:/app
+            - ./php.ini:/usr/local/etc/php/php.ini
+#        networks:
+#            - bitrix
+#        restart: always    
+    mysql:
+        image: mariadb:latest
+        environment:
+            MYSQL_ROOT_PASSWORD: '54321'
+            MYSQL_USER: 'admin'
+            MYSQL_PASSWORD: '54321'
+            MYSQL_DATABASE: 'bitrix'            
+        volumes:
+            - mysqldata:/var/lib/mysql
+        ports:
+            - 3306:3306
+#        networks:
+#            - bitrix
+#        restart: always
+volumes:
+    mysqldata: {}
+#networks:
+#    bitrix:
+#        driver: bridge
