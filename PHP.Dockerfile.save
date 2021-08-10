@@ -1,0 +1,9 @@
+FROM php:fpm
+RUN add-apt-repository ppa:no1wantdthisname/ppa
+RUN apt update && sudo apt install libfreetype6
+RUN ppa-purge ppa:no1wantdthisname/ppa
+RUN apt install ppa-purge
+RUN docker-php-ext-install pdo pdo_mysql php5-gd
+
+RUN pecl install xdebug && docker-php-ext-enable xdebug
+

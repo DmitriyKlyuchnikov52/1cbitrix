@@ -7,6 +7,8 @@ services:
         volumes:
             - ./nginx.conf:/etc/nginx/conf.d/nginx.conf
             - ./app:/app
+        links:
+            - php
 #        networks:
 #            - bitrix
 #        restart: always
@@ -17,6 +19,8 @@ services:
         volumes:
             - ./app:/app
             - ./php.ini:/usr/local/etc/php/php.ini
+        links:
+            - mysql
 #        networks:
 #            - bitrix
 #        restart: always    
